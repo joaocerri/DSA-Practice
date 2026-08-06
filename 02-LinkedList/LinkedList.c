@@ -50,8 +50,26 @@ void printList(List *start){
     }
 }
 
-int main()
-{
+List* delete(List *start, int value){
+    List *current = start;
+    List *aux = NULL;
+
+    while(current != NULL && current -> Value != value){
+        aux = current;
+        current = current -> prox;
+    }
+
+    if(current == NULL) return start;
+
+    if(aux == NULL) start = current -> prox;
+    else aux -> prox = current -> prox;
+
+    free(current);
+    return start
+    
+}
+
+int main() {
     List *list = NULL;
 
     list = insertFirst(list, 20);
@@ -59,10 +77,14 @@ int main()
     list = insertEnd(list, 60);
     list = insertEnd(list, 100);
     list = insertFirst(list, 99);
+    
+    printf("First List:");
+    printList(list); 
 
-    printList(list);
+    list = delete(list, 20);
+    
+    printf("\nAfter delete 20:");
+    printList(list); 
 
     return 0;
 }
-
-
