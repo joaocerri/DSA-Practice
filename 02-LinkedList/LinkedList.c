@@ -3,24 +3,24 @@
 
 typedef struct List{
     int Value;
-    struct List *prox;
+    struct List *next;
 }List;
 
 List* insertEnd(List *start, int value){
     List* aux = (List*) malloc(sizeof(List));
 
     aux -> Value = value;
-    aux -> prox = NULL;
+    aux -> next = NULL;
 
     if (start == NULL) {
         return aux;
     }
 
     List* current = start;
-    while(current -> prox != NULL){
-        current = current -> prox;
+    while(current -> next != NULL){
+        current = current -> next;
     }
-    current -> prox = aux;
+    current -> next = aux;
 
     return start;
 }
@@ -29,7 +29,7 @@ List* insertFirst(List *start, int value){
     List* list = (List*) malloc(sizeof(List));
 
     list -> Value = value;
-    list -> prox = start;
+    list -> next = start;
 
     return list;
 }
@@ -45,7 +45,7 @@ void printList(List *start){
 
     while(current != NULL){
         printf("\nValue in this position %d: %d", counter, current -> Value);
-        current = current -> prox;
+        current = current -> next;
         counter++;
     }
 }
@@ -56,19 +56,29 @@ List* delete(List *start, int value){
 
     while(current != NULL && current -> Value != value){
         aux = current;
-        current = current -> prox;
+        current = current -> next;
     }
 
     if(current == NULL) return start;
 
-    if(aux == NULL) start = current -> prox;
-    else aux -> prox = current -> prox;
+    if(aux == NULL) start = current -> next;
+    else aux -> next = current -> next;
 
     free(current);
-    return start
-    
+    return start;
+
 }
 
+List* deleteFirst(List *start)
+{
+    if(start == NULL){return NULL;}
+
+    List *next = start -> next;
+
+    free(start);
+
+    return next;
+}
 int main() {
     List *list = NULL;
 
@@ -77,14 +87,29 @@ int main() {
     list = insertEnd(list, 60);
     list = insertEnd(list, 100);
     list = insertFirst(list, 99);
-    
+
     printf("First List:");
-    printList(list); 
+    printList(list);
 
     list = delete(list, 20);
+
+    printf("\n\nAfter delete 20:");
+    printList(list);
+
+    list = deleteFirst(list);
+    list = delete(list, 60);
+
+    printf("\n\nAfter delete first element %d:", list -> Value);
+    printList(list);
     
-    printf("\nAfter delete 20:");
-    printList(list); 
+    printf("\n\nAfter delete 60:");
+    printList(list);
+
+    list = delete(list, 100);
+
+    printf("\n\nAfter delete 100:");
+    printList(list);
+
 
     return 0;
 }
