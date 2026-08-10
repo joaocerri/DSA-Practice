@@ -7,7 +7,7 @@ typedef struct List{
 }List;
 
 List* insertEnd(List *start, int value){
-    List* aux = (List*) malloc(sizeof(List));
+    List *aux = malloc(sizeof(List));
 
     aux -> Value = value;
     aux -> next = NULL;
