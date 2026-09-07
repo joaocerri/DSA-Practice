@@ -29,6 +29,11 @@ Repositório dedicado ao estudo e à prática de **Estruturas de Dados e Algorit
 * Busca do menor elemento
 * Soma de intervalos
 
+### 04 - Árvores
+
+* Estrutura base de uma árvore
+* Funções print pré, in e pós ordem
+
 ---
 
 ## 🛠️ Tecnologias
