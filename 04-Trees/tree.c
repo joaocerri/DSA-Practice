@@ -7,6 +7,11 @@ typedef struct node{
     struct node *left;
 }node;
 
+typedef struct queue {
+    node *tree_node;
+    struct queue *next;
+} queue;
+
 node* insert(int num, node *n){
 
     if(n == NULL){
@@ -106,6 +111,55 @@ int tree_height(node *n) {
     }
 }
 
+queue* enqueue(queue *q, node *n){
+    queue *new_node = malloc(sizeof(queue));
+    new_node->tree_node = n;
+    new_node->next = NULL;
+
+    if(q == NULL){
+        return new_node;
+    }
+
+    queue *head = q;
+
+    while(q->next != NULL){
+        q = q->next;
+    }
+    q->next = new_node;
+    return head;
+}
+queue *dequeue(queue *q){
+    if(q == NULL){
+        return NULL;
+    }
+    queue *temp = q;
+    q = q->next;
+    free(temp);
+    return q;
+}
+
+void print_tree_levels(node *root) {
+    if (root == NULL) {
+        return;
+    }
+    queue *q = NULL;
+    q = enqueue(q, root);
+
+    while (q != NULL) {
+        node *current = q->tree_node;
+        printf("%d ", current->number);
+
+        if (current->left != NULL) {
+            q = enqueue(q, current->left);
+        }
+        if (current->right != NULL) {
+            q = enqueue(q, current->right);
+        }
+
+        q = dequeue(q);
+    }
+}
+
 void free_tree(node *n) {
     if (n != NULL) {
         free_tree(n->left);
@@ -138,6 +192,12 @@ int main(void) {
     printf("Postorder Traversal: ");
     print_tree_postorder(root);
     printf("\n\n");
+
+    printf("Level Order Traversal:\n");
+    print_tree_levels(root);
+    printf("\n\n");
+    
+
 
     int target = 40;
     node *found = search(target, root);

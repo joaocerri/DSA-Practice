@@ -96,7 +96,10 @@ DSA-Practice/
 │   ├── mdc-recursivo.c
 │   ├── menor-elemento-array.c
 │   └── soma-intervalo-recursiva.c
-│
+|
+├── 04-Trees/
+│   ├── tree.c
+|
 └── README.md
 ```
 
