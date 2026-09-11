@@ -142,6 +142,9 @@ void print_tree_levels(node *root) {
     if (root == NULL) {
         return;
     }
+    int node_current_level = 1;
+    int nodes_next_level = 0;
+
     queue *q = NULL;
     q = enqueue(q, root);
 
@@ -151,9 +154,19 @@ void print_tree_levels(node *root) {
 
         if (current->left != NULL) {
             q = enqueue(q, current->left);
+            nodes_next_level++;
         }
         if (current->right != NULL) {
             q = enqueue(q, current->right);
+            nodes_next_level++;
+        }
+        
+        node_current_level--;
+
+        if(node_current_level == 0) {
+            printf("\n");
+            node_current_level = nodes_next_level;
+            nodes_next_level = 0;
         }
 
         q = dequeue(q);
