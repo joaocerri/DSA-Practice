@@ -196,8 +196,6 @@ int main(void) {
     printf("Level Order Traversal:\n");
     print_tree_levels(root);
     printf("\n\n");
-    
-
 
     int target = 40;
     node *found = search(target, root);
