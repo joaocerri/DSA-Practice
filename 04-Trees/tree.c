@@ -138,15 +138,15 @@ queue *dequeue(queue *q){
     return q;
 }
 
-void print_tree_levels(node *root) {
-    if (root == NULL) {
+void print_tree_levels(node *n) {
+    if (n == NULL) {
         return;
     }
     int node_current_level = 1;
     int nodes_next_level = 0;
 
     queue *q = NULL;
-    q = enqueue(q, root);
+    q = enqueue(q, n);
 
     while (q != NULL) {
         node *current = q->tree_node;
@@ -160,7 +160,7 @@ void print_tree_levels(node *root) {
             q = enqueue(q, current->right);
             nodes_next_level++;
         }
-        
+
         node_current_level--;
 
         if(node_current_level == 0) {
@@ -171,6 +171,17 @@ void print_tree_levels(node *root) {
 
         q = dequeue(q);
     }
+}
+
+void invert_tree(node* n){
+    if(n == NULL){return;}
+
+    node* aux = n->left;
+    n->left=n->right;
+    n->right = aux;
+
+    invert_tree(n->left);
+    invert_tree(n->right);
 }
 
 void free_tree(node *n) {
@@ -209,6 +220,14 @@ int main(void) {
     printf("Level Order Traversal:\n");
     print_tree_levels(root);
     printf("\n\n");
+
+    invert_tree(root);
+    printf("\nLevel Invert Order Traversal:\n");
+    print_tree_levels(root);
+    printf("\n\n");
+
+
+
 
     int target = 40;
     node *found = search(target, root);
