@@ -111,6 +111,22 @@ int tree_height(node *n) {
     }
 }
 
+int count_leaves(node *n){
+    if(n == NULL){
+        return 0;
+    }
+
+    if(n->left == NULL && n->right == NULL){
+        return 1;
+    }
+
+    int totleaves = 0;
+
+    totleaves += count_leaves(n->left);
+    totleaves += count_leaves(n->right);
+    return totleaves;
+}
+
 queue* enqueue(queue *q, node *n){
     queue *new_node = malloc(sizeof(queue));
     new_node->tree_node = n;
