@@ -120,11 +120,32 @@ int count_leaves(node *n){
         return 1;
     }
 
-    int totleaves = 0;
+    int totleaves = 0;  
 
     totleaves += count_leaves(n->left);
     totleaves += count_leaves(n->right);
     return totleaves;
+}
+
+int is_balanced(node *n){
+    if(n == NULL){
+        return 1;
+    }
+
+    int left_height = tree_height(n->left);
+    int right_height = tree_height(n->right);
+
+    int balancing_factor = left_height - right_height;
+
+    if(balancing_factor < 0){
+        balancing_factor = -balancing_factor;
+    }
+
+    if(balancing_factor <= 1 && is_balanced(n->left) && is_balanced(n->right)){
+        return 1;
+    }
+
+    return 0;
 }
 
 queue* enqueue(queue *q, node *n){
