@@ -221,6 +221,28 @@ void invert_tree(node* n){
     invert_tree(n->right);
 }
 
+node* turn_right(node *n){
+    node *a = n;
+    node *b = a->left;
+    node *temp = b->right
+
+    b->rigth = a;
+    a->left = temp;
+
+    return b;
+}
+node* turn_left(node *n){
+    node *a = n;
+    node *b = a->right;
+    node *temp = b->left
+
+    b->left = a;
+    a->right = temp;
+
+    return b;
+}
+
+
 void free_tree(node *n) {
     if (n != NULL) {
         free_tree(n->left);
